@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="container">
-      <ease-sku
+      <vue-sku
         v-model="value"
         action="http://localhost:8081/index.php"
         :skuTree="skuTree"

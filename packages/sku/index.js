@@ -1,7 +1,7 @@
 import Sku from './sku'
 
 const install = function (Vue) {
-  Vue.component('ease-sku', Sku)
+  Vue.component('vue-sku', Sku)
 }
 
 /* istanbul ignore if */

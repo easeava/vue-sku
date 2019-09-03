@@ -20,7 +20,7 @@ const noop = res => res
 const noopPromise = () => Promise.resolve(noop)
 
 export default {
-  name: 'ease-sku',
+  name: 'vue-sku',
 
   provide () {
     return {
