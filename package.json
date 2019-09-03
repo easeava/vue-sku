@@ -1,16 +1,21 @@
 {
-  "name": "sku",
-  "version": "0.1.0",
-  "private": true,
+  "name": "ease-sku",
+  "version": "0.1.1",
+  "description": "基于element-ui商品规格组件",
+  "keyword": "vue-sku element-ui sku ease-sku element-sku",
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:e2e": "vue-cli-service test:e2e",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "lib": "vue-cli-service build --target lib --name sku --dest lib packages/sku/index.js"
   },
+  "main": "lib/sku.umd.min.js",
   "dependencies": {
     "core-js": "^2.6.5",
+    "element-ui": "^2.12.0",
     "vue": "^2.6.10"
   },
   "devDependencies": {
