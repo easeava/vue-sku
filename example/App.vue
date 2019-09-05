@@ -66,7 +66,6 @@ export default {
   data () {
     return {
       value: [],
-      table: [],
       skuTree
     }
   },

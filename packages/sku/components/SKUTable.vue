@@ -87,12 +87,16 @@ export default {
   },
 
   computed: {
+    filter () {
+      return this.data.filter(item => item.text && item.leaf.length)
+    },
+
     lists () {
-      return flatten(this.data)
+      return flatten(this.filter)
     },
 
     columns () {
-      return this.data.map(item => item[this.optionText])
+      return this.filter.map(item => item[this.optionText])
     }
   },
 
@@ -110,7 +114,7 @@ export default {
         let dot = 0
 
         this.lists.map((item, idx) => {
-          if (idx === 0 || item[this.optionValue] === undefined) {
+          if (idx === 0) {
             span.push(1)
           } else {
             if (item.skus[index].v === this.lists[idx - 1].skus[index].v) {
@@ -126,13 +130,13 @@ export default {
         this.rowspan.push(span)
       }
 
-      this.data.map((item, index) => {
+      this.filter.map((item, index) => {
         rowspan(index)
       })
     },
 
     handleSpanMethod ({ row, column, rowIndex, columnIndex }) {
-      for (let i = 0; i < this.data.length; i++) {
+      for (let i = 0; i < this.filter.length; i++) {
         if (columnIndex === i) {
           if (this.rowspan[i] && this.rowspan[i][rowIndex]) {
             return {
