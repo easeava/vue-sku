@@ -31,14 +31,18 @@ export default {
 
   data () {
     return {
-      data: this.$props.value,
-      skuTreeData: this.$props.skuTree
+      data: this.value,
+      skuTreeData: this.skuTree
     }
   },
 
   watch: {
-    data (value) {
-      this.$emit('input', value)
+    data: {
+      deep: true,
+      immediate: true,
+      handler (value) {
+        this.$emit('input', value)
+      }
     },
 
     skuTree (skuTree) {
@@ -160,6 +164,8 @@ export default {
     handleSkuRemove (index) {
       let { data } = this
       data.splice(index, 1)
+
+      this.$emit('onChange', this.data)
     }
   },
 

@@ -1,15 +1,22 @@
 <template>
   <div class="ease-sku-table">
-    {{columns}}
+
     <el-table
       size="mini"
-      :data="lists">
-      <el-table-column
-        :label="label" v-for="(label, index) in columns" :key="index">
-        <template>
-          {{index}}
-        </template>
-      </el-table-column>
+      :data="lists"
+      :span-method="handleSpanMethod">
+      <template v-for="(label, index) in columns">
+        <!-- 为什么要判断label: 动态添加规格名的时候规格名不为undefiend时未动态显示, 没有看table-column实现暂时这么解决  -->
+        <el-table-column
+          v-if="label"
+          :label="label"
+          :key="index">
+          <template slot-scope="scope">
+            {{scope.row.skus[index] && scope.row.skus[index].v}}
+          </template>
+        </el-table-column>
+      </template>
+
       <el-table-column
         prop="price"
         label="价格"
@@ -35,6 +42,10 @@
         </template>
       </el-table-column>
     </el-table>
+    <pre>
+      {{rowspan}}
+      {{lists}}
+    </pre>
   </div>
 </template>
 
@@ -69,16 +80,73 @@ export default {
     }
   },
 
+  data () {
+    return {
+      rowspan: []
+    }
+  },
+
   computed: {
     lists () {
       return flatten(this.data)
     },
 
     columns () {
-      return this.data.map(item => {
-        console.log(item[this.optionText])
-        return item[this.optionText]
+      return this.data.map(item => item[this.optionText])
+    }
+  },
+
+  watch: {
+    lists () {
+      this.computeRowspan()
+    }
+  },
+
+  methods: {
+    computeRowspan () {
+      this.rowspan = []
+      const rowspan = (index) => {
+        let span = []
+        let dot = 0
+
+        this.lists.map((item, idx) => {
+          if (idx === 0 || item[this.optionValue] === undefined) {
+            span.push(1)
+          } else {
+            if (item.skus[index].v === this.lists[idx - 1].skus[index].v) {
+              span[dot] += 1
+              span.push(0)
+            } else {
+              dot = idx
+              span.push(1)
+            }
+          }
+        })
+
+        this.rowspan.push(span)
+      }
+
+      this.data.map((item, index) => {
+        rowspan(index)
       })
+    },
+
+    handleSpanMethod ({ row, column, rowIndex, columnIndex }) {
+      for (let i = 0; i < this.data.length; i++) {
+        if (columnIndex === i) {
+          if (this.rowspan[i] && this.rowspan[i][rowIndex]) {
+            return {
+              rowspan: this.rowspan[i][rowIndex],
+              colspan: 1
+            }
+          } else {
+            return {
+              rowspan: 0,
+              colspan: 0
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -226,7 +226,7 @@ export default {
   created () {
     let { sku, optionValue } = this
 
-    sku[optionValue] = this.fetchLeafById(sku[optionValue])
+    sku[optionValue] && this.fetchLeafById(sku[optionValue])
   }
 }
 </script>

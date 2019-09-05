@@ -139,8 +139,14 @@ export default {
     handleSkuLeafChange (leaf) {
       let { sku, index } = this
       sku.leaf = leaf
-
+      console.log(sku.leaf)
       this.onSkuChange(sku, index)
+    }
+  },
+
+  updated () {
+    if (this.sku[this.optionValue]) {
+      this.skuValue = this.sku[this.optionValue]
     }
   }
 }
