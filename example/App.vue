@@ -10,7 +10,8 @@
         :onCreateGroup="createGroup"
         :onCreateSku="createSku"
         @onChange="change"/>
-        <pre>{{value}}</pre>
+      <sku-table :data="value" />
+      <pre>{{value}}</pre>
     </div>
   </div>
 </template>
@@ -18,8 +19,10 @@
 <script>
 import Vue from 'vue'
 import Sku from '../packages/sku'
+import SkuTable from '../packages/sku/components/SKUTable'
 
 Vue.use(Sku)
+Vue.use(SkuTable)
 
 const skuTree = [
   {
@@ -56,6 +59,10 @@ const sku = [
 ]
 
 export default {
+  components: {
+    SkuTable
+  },
+
   data () {
     return {
       value: [],
@@ -88,7 +95,13 @@ export default {
 
     createSku (data) {
       return new Promise((resolve, reject) => {
-        resolve(data)
+        console.log(data)
+        resolve(data.data.map(item => {
+          return {
+            id: parseInt(Math.random() * 100, 10) + parseInt(Math.random() * 100, 10),
+            text: item
+          }
+        }))
       })
     },
 
