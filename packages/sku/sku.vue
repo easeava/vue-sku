@@ -6,8 +6,9 @@
       :index="index"
       :sku="item"
       :skuTree="skuTreeData"
-      :onSkuChange="rebuildSku"/>
-    <sku-button v-if="data.length < maxSize" @click.native="addSku" />
+      :onSkuChange="rebuildSku"
+      :onSkuRemove="handleSkuRemove"/>
+    <sku-button v-if="data.length < maxSize" :onClick="addSku" />
   </div>
 </template>
 
@@ -154,6 +155,11 @@ export default {
       }
 
       this.$emit('onChange', this.data)
+    },
+
+    handleSkuRemove (index) {
+      let { data } = this
+      data.splice(index, 1)
     }
   },
 

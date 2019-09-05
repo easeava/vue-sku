@@ -118,8 +118,12 @@ export default {
   },
 
   watch: {
-    sku (sku) {
-      this.fetchLeafById(sku[this.optionValue])
+    sku: {
+      deep: true,
+      immediate: true,
+      handler (sku) {
+        this.fetchLeafById(sku[this.optionValue])
+      }
     }
   },
 
@@ -161,19 +165,20 @@ export default {
 
     createSkuLeaf (data) {
       let { sku, optionValue, skuOptions } = this
+      // 过滤需要新增的规格值
       data = data.filter(item => typeof (item) === 'string')
       if (!data.length) return
 
       this.ease.onCreateSku({
         data: data,
         id: sku[optionValue]
-      }).then(() => {
-        const options = data.map(item => {
-          return {
-            id: parseInt(Math.random() * 100, 10) + parseInt(Math.random() * 100, 10),
-            text: item
-          }
-        })
+      }).then((options) => {
+        // const options = data.map(item => {
+        //   return {
+        //     id: parseInt(Math.random() * 100, 10) + parseInt(Math.random() * 100, 10),
+        //     text: item
+        //   }
+        // })
 
         skuOptions.push(...options)
 

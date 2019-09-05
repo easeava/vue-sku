@@ -15,7 +15,7 @@
         </el-option>
       </el-select>
       <el-checkbox size="mini" v-if="index === 0 && ease.showAddSkuImage" class="check-img" v-model="hasSkuImage" @change="handleCheckedSkuImage">添加规格图片</el-checkbox>
-      <i class="el-icon-error group-remove"></i>
+      <i class="el-icon-error group-remove" @click="onSkuRemove(index)"></i>
     </div>
     <sku-container :sku="sku" :hasSkuImage="hasSkuImage" :onSkuLeafChange="handleSkuLeafChange"/>
     <div class="sku-notice">
@@ -80,6 +80,10 @@ export default {
       default: 'text'
     },
     onSkuChange: {
+      type: Function,
+      default: noop
+    },
+    onSkuRemove: {
       type: Function,
       default: noop
     }

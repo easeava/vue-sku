@@ -1,7 +1,7 @@
 <template>
   <div class="ease-sku-group">
     <div class="group-title">
-      <el-button size="mini">添加规格项目</el-button>
+      <el-button size="mini" @click="onClick">添加规格项目</el-button>
     </div>
   </div>
 </template>
@@ -13,6 +13,11 @@ import { Button } from 'element-ui'
 Vue.use(Button)
 
 export default {
+  props: {
+    onClick: {
+      type: Function
+    }
+  }
 }
 </script>
 
