@@ -35,6 +35,10 @@
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.10"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/easeava/vue-sku.git"
+  },
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
