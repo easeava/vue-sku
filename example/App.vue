@@ -110,7 +110,7 @@ html, body {
   padding-top: 20px;
 
   .container {
-    width: 100%;
+    width: 1000px;
   }
 }
 </style>

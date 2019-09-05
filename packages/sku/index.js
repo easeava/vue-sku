@@ -1,3 +1,4 @@
+import { flatten, isEqual } from './utils'
 import Sku from './sku'
 
 const install = function (Vue) {
@@ -10,5 +11,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 export default {
-  install
+  install,
+  flatten,
+  isEqual
 }
