@@ -115,7 +115,7 @@ export default {
       deep: true,
       immediate: true,
       handler (data) {
-        this.$emit('onChangeData', data)
+        this.$emit('on-change-data', data)
       }
     }
   },

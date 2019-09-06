@@ -4,13 +4,13 @@
       <vue-sku
         v-model="value"
         action="http://localhost:8081/index.php"
-        :skuTree="skuTree"
-        :onFetchGroup="fetchSkuTree"
-        :onFetchSku="fetchSku"
-        :onCreateGroup="createGroup"
-        :onCreateSku="createSku"
-        @onChange="change"/>
-      <sku-table :data="value" :flatten="flatten" @onChangeData="handleChangeData" />
+        :sku-tree="skuTree"
+        :on-fetch-group="fetchSkuTree"
+        :on-fetch-ku="fetchSku"
+        :on-create-group="createGroup"
+        :on-create-sku="createSku"
+        @on-change="change"/>
+      <sku-table :data="value" :flatten="flatten" @on-change-data="handleChangeData" />
       <br>
       <small>规格组合
         <pre>{{value}}</pre>

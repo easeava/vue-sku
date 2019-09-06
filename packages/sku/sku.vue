@@ -158,14 +158,14 @@ export default {
         skuTreeData.push(sku)
       }
 
-      this.$emit('onChange', this.data)
+      this.$emit('on-change', this.data)
     },
 
     handleSkuRemove (index) {
       let { data } = this
       data.splice(index, 1)
 
-      this.$emit('onChange', this.data)
+      this.$emit('on-change', this.data)
     }
   },
 
