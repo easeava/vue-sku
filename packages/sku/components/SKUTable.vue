@@ -4,6 +4,7 @@
     <el-table
       size="mini"
       :data="lists"
+      v-if="lists.length"
       :span-method="handleSpanMethod">
       <template v-for="(label, index) in columns">
         <!-- 为什么要判断label: 动态添加规格名的时候规格名不为undefiend时未动态显示, 没有看table-column实现暂时这么解决  -->
@@ -21,31 +22,27 @@
         prop="price"
         label="价格"
         width="160">
-        <template>
-          <el-input-number size="mini"></el-input-number>
+        <template slot-scope="scope">
+          <el-input-number :precision="2" :min="0" controls-position="right" v-model="scope.row.price" size="mini"></el-input-number>
         </template>
       </el-table-column>
       <el-table-column
         prop="stock"
         label="库存"
         width="160">
-        <template>
-          <el-input-number size="mini"></el-input-number>
+        <template slot-scope="scope">
+          <el-input-number :precision="2" :min="0" controls-position="right" v-model="scope.row.stock" size="mini"></el-input-number>
         </template>
       </el-table-column>
       <el-table-column
         prop="marked_price"
         label="成本价"
         width="160">
-        <template>
-          <el-input-number size="mini"></el-input-number>
+        <template slot-scope="scope">
+          <el-input-number :precision="2" :min="0" controls-position="right" v-model="scope.row.marked_price" size="mini"></el-input-number>
         </template>
       </el-table-column>
     </el-table>
-    <pre>
-      {{rowspan}}
-      {{lists}}
-    </pre>
   </div>
 </template>
 
@@ -68,6 +65,13 @@ export default {
         return []
       }
     },
+    // 需要附加的字段
+    flatten: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
     // 自定义sku的id key
     optionValue: {
       type: String,
@@ -82,7 +86,8 @@ export default {
 
   data () {
     return {
-      rowspan: []
+      rowspan: [],
+      lists: []
     }
   },
 
@@ -91,18 +96,27 @@ export default {
       return this.data.filter(item => item.text && item.leaf.length)
     },
 
-    lists () {
-      return flatten(this.filter)
-    },
-
     columns () {
       return this.filter.map(item => item[this.optionText])
     }
   },
 
   watch: {
-    lists () {
-      this.computeRowspan()
+    filter: {
+      deep: true,
+      immediate: true,
+      handler () {
+        this.lists = flatten(this.filter, this.flatten)
+        this.computeRowspan()
+      }
+    },
+
+    lists: {
+      deep: true,
+      immediate: true,
+      handler (data) {
+        this.$emit('onChangeData', data)
+      }
     }
   },
 

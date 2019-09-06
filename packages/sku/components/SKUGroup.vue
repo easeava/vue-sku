@@ -144,9 +144,15 @@ export default {
     }
   },
 
-  updated () {
-    if (this.sku[this.optionValue]) {
-      this.skuValue = this.sku[this.optionValue]
+  watch: {
+    sku: {
+      deep: true,
+      immediate: true,
+      handler (sku) {
+        if (sku[this.optionValue]) {
+          this.skuValue = sku[this.optionValue]
+        }
+      }
     }
   }
 }

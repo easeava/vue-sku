@@ -10,8 +10,14 @@
         :onCreateGroup="createGroup"
         :onCreateSku="createSku"
         @onChange="change"/>
-      <sku-table :data="value" />
-      <pre>{{value}}</pre>
+      <sku-table :data="value" :flatten="flatten" @onChangeData="handleChangeData" />
+      <br>
+      <small>规格组合
+        <pre>{{value}}</pre>
+      </small>
+      <small>表格组合
+        <pre>{{data}}</pre>
+      </small>
     </div>
   </div>
 </template>
@@ -55,6 +61,14 @@ const sku = [
   {
     id: 138,
     text: '灰色'
+  },
+  {
+    id: 121,
+    text: 'xxl'
+  },
+  {
+    id: 94,
+    text: 'xxxl'
   }
 ]
 
@@ -65,8 +79,114 @@ export default {
 
   data () {
     return {
-      value: [],
-      skuTree
+      value: [
+        {
+          'id': 10740,
+          'text': '颜色',
+          'leaf': [
+            {
+              'id': 3,
+              'text': '蓝色',
+              'is_show': false
+            },
+            {
+              'id': 10,
+              'text': '红色',
+              'is_show': false
+            }
+          ]
+        },
+        {
+          'id': 40732,
+          'text': '尺寸',
+          'leaf': [
+            {
+              'id': 121,
+              'text': 'xxl',
+              'is_show': false
+            },
+            {
+              'id': 94,
+              'text': 'xxxl',
+              'is_show': false
+            }
+          ]
+        }
+      ],
+      skuTree,
+      data: [],
+      flatten: [
+        {
+          'skus': [
+            {
+              'k_id': 10740,
+              'k': '颜色',
+              'v_id': 3,
+              'v': '蓝色'
+            },
+            {
+              'k_id': 40732,
+              'k': '尺寸',
+              'v_id': 121,
+              'v': 'xxl'
+            }
+          ],
+          'price': 222222,
+          'stock': 12222,
+          'marked_price': 12312
+        },
+        {
+          'skus': [
+            {
+              'k_id': 10740,
+              'k': '颜色',
+              'v_id': 3,
+              'v': '蓝色'
+            },
+            {
+              'k_id': 40732,
+              'k': '尺寸',
+              'v_id': 94,
+              'v': 'xxxl'
+            }
+          ],
+          'price': 233333,
+          'stock': 222222,
+          'marked_price': 111111
+        },
+        {
+          'skus': [
+            {
+              'k_id': 10740,
+              'k': '颜色',
+              'v_id': 10,
+              'v': '红色'
+            },
+            {
+              'k_id': 40732,
+              'k': '尺寸',
+              'v_id': 121,
+              'v': 'xxl'
+            }
+          ]
+        },
+        {
+          'skus': [
+            {
+              'k_id': 10740,
+              'k': '颜色',
+              'v_id': 10,
+              'v': '红色'
+            },
+            {
+              'k_id': 40732,
+              'k': '尺寸',
+              'v_id': 94,
+              'v': 'xxxl'
+            }
+          ]
+        }
+      ]
     }
   },
 
@@ -106,6 +226,10 @@ export default {
     },
 
     change (data) {
+    },
+
+    handleChangeData (data) {
+      this.data = data
     }
   }
 }
