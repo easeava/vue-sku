@@ -6,7 +6,7 @@
         action="http://localhost:8081/index.php"
         :sku-tree="skuTree"
         :on-fetch-group="fetchSkuTree"
-        :on-fetch-ku="fetchSku"
+        :on-fetch-sku="fetchSku"
         :on-create-group="createGroup"
         :on-create-sku="createSku"
         @on-change="change"/>

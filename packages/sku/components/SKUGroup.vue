@@ -150,11 +150,19 @@ export default {
       immediate: true,
       handler (sku) {
         if (sku[this.optionValue]) {
-          this.skuValue = sku[this.optionValue]
+          this.$nextTick(() => {
+            this.skuValue = sku[this.optionValue]
+          })
         }
       }
     }
   }
+
+  // updated () {
+  //   if (this.sku[this.optionValue]) {
+  //     this.skuValue = this.sku[this.optionValue]
+  //   }
+  // }
 }
 </script>
 
