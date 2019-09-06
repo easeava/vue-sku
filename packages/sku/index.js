@@ -1,8 +1,16 @@
 import { flatten, isEqual } from './utils'
 import Sku from './sku'
+import SkuTable from './components/SKUTable'
+
+const components = [
+  Sku,
+  SkuTable
+]
 
 const install = function (Vue) {
-  Vue.component('vue-sku', Sku)
+  components.forEach(component => {
+    Vue.component(component.name, component)
+  })
 }
 
 /* istanbul ignore if */
@@ -10,8 +18,10 @@ if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue)
 }
 
-export default {
+export {
   install,
   flatten,
-  isEqual
+  isEqual,
+  Sku,
+  SkuTable
 }

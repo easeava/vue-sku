@@ -23,12 +23,7 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import Sku from '../packages/sku'
-import SkuTable from '../packages/sku/components/SKUTable'
-
-Vue.use(Sku)
-Vue.use(SkuTable)
+import { Sku, SkuTable } from '../packages/sku'
 
 const skuTree = [
   {
@@ -74,9 +69,9 @@ const sku = [
 
 export default {
   components: {
-    SkuTable
+    'vue-sku': Sku,
+    'sku-table': SkuTable
   },
-
   data () {
     return {
       value: [
