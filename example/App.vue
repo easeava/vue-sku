@@ -10,6 +10,7 @@
         :on-create-group="createGroup"
         :on-create-sku="createSku"
         @on-change="change"/>
+      <br>
       <sku-table :data="value" :flatten="flatten" @on-change-data="handleChangeData" />
       <br>
       <small>规格组合

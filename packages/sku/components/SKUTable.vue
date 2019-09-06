@@ -2,6 +2,7 @@
   <div class="ease-sku-table">
 
     <el-table
+      border
       size="mini"
       :data="lists"
       v-if="lists.length"
