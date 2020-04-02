@@ -15,6 +15,10 @@ yarn add element-vue-sku
 import 'element-vue-sku/lib/sku.css'
 
 import { Sku, SkuTable } from 'element-vue-sku'
+
+components: {
+  Sku, SkuTable
+}
 ```
 
 demo
